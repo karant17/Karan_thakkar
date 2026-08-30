@@ -26,6 +26,15 @@ const Navbar = () => {
     document.documentElement.classList.toggle("dark", dark);
   }, [dark]);
 
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const element = document.querySelector(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setMobileOpen(false);
+  };
+
   return (
     <motion.nav 
       initial={{ opacity: 0, y: -20 }}
@@ -38,14 +47,19 @@ const Navbar = () => {
           scrolled ? "glass-strong" : "glass"
         }`}
       >
-        <a href="#" className="font-heading font-bold text-lg text-foreground flex items-center gap-1">
+        <a href="#" onClick={(e) => handleScroll(e, 'body')} className="font-heading font-bold text-lg text-foreground flex items-center gap-1">
           <span className="text-gradient">KT</span>
           <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
         </a>
 
         <div className="hidden md:flex items-center gap-7">
           {navLinks.map((l) => (
-            <a key={l.href} href={l.href} className="text-sm text-muted-foreground hover:text-primary transition-colors">
+            <a 
+              key={l.href} 
+              href={l.href}
+              onClick={(e) => handleScroll(e, l.href)}
+              className="text-sm text-muted-foreground hover:text-primary transition-colors cursor-pointer"
+            >
               {l.label}
             </a>
           ))}
@@ -79,7 +93,12 @@ const Navbar = () => {
           >
             <div className="px-5 py-4 flex flex-col gap-3">
               {navLinks.map((l) => (
-                <a key={l.href} href={l.href} onClick={() => setMobileOpen(false)} className="text-muted-foreground hover:text-primary transition-colors text-sm">
+                <a 
+                  key={l.href} 
+                  href={l.href} 
+                  onClick={(e) => handleScroll(e, l.href)} 
+                  className="text-muted-foreground hover:text-primary transition-colors text-sm cursor-pointer"
+                >
                   {l.label}
                 </a>
               ))}

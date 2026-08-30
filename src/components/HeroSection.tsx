@@ -2,6 +2,14 @@ import { motion } from "framer-motion";
 import { ArrowDown, ArrowRight, Mail, Phone, MapPin, Download, Linkedin, Sparkles } from "lucide-react";
 
 const HeroSection = () => {
+  const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    const element = document.querySelector(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="relative min-h-screen flex items-center justify-center section-padding pt-28 overflow-hidden">
       {/* Tech grid background */}
@@ -63,6 +71,7 @@ const HeroSection = () => {
         >
           <a
             href="#experience"
+            onClick={(e) => handleScroll(e, '#experience')}
             className="w-full sm:w-auto px-8 py-3.5 rounded-xl text-primary-foreground font-medium transition-all hover:glow-primary hover:scale-[1.02] active:scale-95 group"
             style={{ background: "var(--gradient-primary)" }}
           >
@@ -70,8 +79,8 @@ const HeroSection = () => {
             <ArrowRight size={16} className="inline ml-2 group-hover:translate-x-1 transition-transform" />
           </a>
           <a
-            href="/Karan_Thakkar_Resume.pdf"
-            download
+            href="./Karan_Thakkar_Resume.pdf"
+            download="Karan_Thakkar_Resume.pdf"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl glass-strong hover:glow-primary transition-all text-foreground font-medium text-sm group"
           >
             <Download size={16} className="text-primary group-hover:-translate-y-0.5 transition-transform" />
@@ -113,7 +122,7 @@ const HeroSection = () => {
           className="mt-8 flex flex-col items-center gap-1"
         >
           <p className="text-xs font-mono text-primary uppercase tracking-widest mb-2 opacity-70">Scroll to Explore</p>
-          <a href="#experience" className="flex flex-col items-center justify-center text-primary transition-colors group cursor-pointer">
+          <a href="#experience" onClick={(e) => handleScroll(e, '#experience')} className="flex flex-col items-center justify-center text-primary transition-colors group cursor-pointer">
             <motion.div
               animate={{ y: [0, 8, 0] }}
               transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
